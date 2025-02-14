@@ -25,7 +25,6 @@ export default function Taskk({fetchtask,task}) {
 
     return (
     <div>
-        <h1>Created By Arshdev Singh</h1>
       <h1>Title : {task.Title}</h1>
       <p>Description : {task.Description}</p>
       <p>Priority : {task.Priority}</p>
