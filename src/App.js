@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React ,{useEffect, useState} from 'react'
+import Tform from "./Tform.js"
+import Tlist from './Tlist.js';
+
 
 function App() {
+  const [task,settask] = useState([]);
+  const fetchtask= async() => {
+      const resp = await fetch("http://localhost:5000/task/",{
+        method : "GET",
+        headers : {"Content-Type" : "application/json"}
+      })
+      const x = await resp.json();
+      settask(x);
+  }
+  useEffect(()=>{
+      fetchtask();
+  },[]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>To-do Application</h1>
+      <Tform fetchtask={fetchtask}/>
+      <Tlist fetchtask={fetchtask} tasks={task}/>
     </div>
   );
 }
